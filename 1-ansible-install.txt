@@ -14,4 +14,4 @@ $ sudo apt-get install ansible
 
 Test version:
 
-$ ansible –-version
+$ ansible --version
