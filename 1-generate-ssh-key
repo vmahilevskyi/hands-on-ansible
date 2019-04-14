@@ -1,0 +1,17 @@
+Generate new SSH key
+$ ssh-keygen
+
+Copy this key to another VM
+$ ssh-copy-id username@IP
+
+Disable SSH key verification
+Set the parameter in the file /etc/ansible/ansible.cfg:
+host_key_checking = False
+
+Test connection
+$ ssh username@IP
+
+Edit (or create) /etc/ansible/hosts and put one or more remote systems in it.
+Test connection
+$ ansible all -m ping
+
