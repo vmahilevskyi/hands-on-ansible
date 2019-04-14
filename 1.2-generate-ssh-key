@@ -12,6 +12,10 @@ Test connection
 $ ssh username@IP
 
 Edit (or create) /etc/ansible/hosts and put one or more remote systems in it and localhost to.
+[local]
+127.0.0.1
+[test]
+192.168.0.1
 Test connection
 $ ansible all -m ping
 
