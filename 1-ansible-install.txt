@@ -1,0 +1,13 @@
+Url for installation  on different OS
+https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-the-control-machine
+
+Example for Debian OS
+Add the following line to /etc/apt/sources.list:
+
+deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main
+
+Then run these commands:
+
+$ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+$ sudo apt-get update
+$ sudo apt-get install ansible
