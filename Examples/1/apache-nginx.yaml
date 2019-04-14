@@ -3,30 +3,44 @@
     true
   become_method: 
     sudo
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
   tasks:
     - name: Update packages
       apt:
           update_cache: yes
           upgrade: yes
-          cache_valid_time: 86400 
+          cache_valid_time: 86400
+      tags: upgrade
     - name: Install Nginx
       package:
         name: nginx
         state: latest
     - name: Copy index.html
       shell: echo 'Hello World!!!' >/var/www/html/index.html
+      notify:
+        - restart nginx
 
 - hosts: local
   become: 
     true
   become_method: 
     sudo
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
   tasks:
     - name: Update packages
       apt:
           update_cache: yes
           upgrade: yes
           cache_valid_time: 86400 
+      tags: upgrade
     - name: Install Apache2
       package:
         name: apache2
@@ -38,3 +52,6 @@
         remote_src: yes
         mode: 0640
         force: yes
+      notify:
+        - restart apache
+      tags: htmlfile
