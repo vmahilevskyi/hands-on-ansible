@@ -1,0 +1,40 @@
+- hosts: test
+  become: 
+    true
+  become_method: 
+    sudo
+  tasks:
+    - name: Update packages
+      apt:
+          update_cache: yes
+          upgrade: yes
+          cache_valid_time: 86400 
+    - name: Install Nginx
+      package:
+        name: nginx
+        state: latest
+    - name: Copy index.html
+      shell: echo 'Hello World!!!' >/var/www/html/index.html
+
+- hosts: local
+  become: 
+    true
+  become_method: 
+    sudo
+  tasks:
+    - name: Update packages
+      apt:
+          update_cache: yes
+          upgrade: yes
+          cache_valid_time: 86400 
+    - name: Install Apache2
+      package:
+        name: apache2
+        state: latest
+    - name: Copy index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+        remote_src: yes
+        mode: 0640
+        force: yes
