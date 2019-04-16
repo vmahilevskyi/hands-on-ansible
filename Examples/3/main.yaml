@@ -1,0 +1,42 @@
+- hosts: all
+  become: 
+    true
+  become_method: 
+    sudo
+  vars:
+    package_name: nginx
+    host: "{{ ansible_hostname[:5] }}"
+  vars_files:
+    - vars.yaml
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: "{{ service_status }}"
+  tasks:
+    - set_fact:
+      package_version: "{% if package_name == 'nginx' %} {{ nginx_version }} 
+                {% elif package_name == 'apache2' %} {{ apache_version }}
+                {% else %} '' {% endif %}"
+    - name: Update packages
+      apt:
+          update_cache: yes
+          upgrade: yes
+          cache_valid_time: 86400
+      tags: upgrade
+   - name: Install new packages
+     apt: 
+        name: "{{ item }}"
+        update_cache: true
+        state: "{{ package_version }}"
+        dpkg_options: 'force-confold,force-confdef'
+     with_items:
+           - "mc"
+           - "htop"
+           - "{{ package_name }}"
+    - name: Copy index.html
+      shell: echo 'Hello World!!! - "{{ host }}" - "{{ ansible_os_family }}" ' >/var/www/html/index.html
+      when: ansible_os_family == "Debian"
+      notify:
+        - restart nginx
+      
