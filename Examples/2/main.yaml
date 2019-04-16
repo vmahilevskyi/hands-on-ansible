@@ -12,7 +12,7 @@
     - name: restart nginx
       service:
         name: nginx
-        state: restarted
+        state: "{{ service_status }}"
   tasks:
     - name: Update packages
       apt:
