@@ -1,0 +1,30 @@
+- hosts: test
+  become: 
+    true
+  become_method: 
+    sudo
+  vars:
+    package_name: nginx
+    host: "{{ ansible_hostname[:5] }}"
+  vars_files:
+    - vars.yaml
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+  tasks:
+    - name: Update packages
+      apt:
+          update_cache: yes
+          upgrade: yes
+          cache_valid_time: 86400
+      tags: upgrade
+    - name: Install Nginx
+      package:
+        name: "{{ package_name }}"
+        state: latest
+    - name: Copy index.html
+      shell: echo 'Hello World!!! - "{{ host }}" ' >/var/www/html/index.html
+      notify:
+        - restart nginx
