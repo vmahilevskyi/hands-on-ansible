@@ -4,7 +4,7 @@
   become_method: 
     sudo
   vars:
-    package_name: nginx
+    package_name: "nginx"
     host: "{{ ansible_hostname[:5] }}"
   vars_files:
     - vars.yaml
