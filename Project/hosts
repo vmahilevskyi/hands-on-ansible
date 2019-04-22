@@ -3,7 +3,7 @@ web1 ansible_host=192.168.113.137
 web2 ansible_host=192.168.113.138
 
 [dbservers]
-db1
+db1 ansible_host=192.168.113.139
 
 [lbservers]
 lb1
