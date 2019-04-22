@@ -15,7 +15,7 @@
 
 - name: install some useful nagios plugins
   apt: 
-    name: {{ item }} 
+    name: "{{ item }}"
     state: latest
   with_items:
    - nagios-nrpe
