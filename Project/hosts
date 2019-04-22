@@ -6,13 +6,13 @@ web2 ansible_host=192.168.113.138
 db1 ansible_host=192.168.113.139
 
 [lbservers]
-lb1
+lb1 ansible_host=192.168.113.141
 
 [monitoring]
-nagios
+nagios ansible_host=127.0.0.1
 
-[redis]
-redis
+#[redis]
+#redis
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
