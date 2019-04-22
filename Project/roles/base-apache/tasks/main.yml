@@ -1,25 +1,18 @@
 ---
-# This role installs httpd
+# This role installs apache2
 
-- name: Install http
+- name: Install apache, php, git
   yum:
     name: "{{ item }}"
     state: present
   with_items:
-   - httpd
+   - apache2
    - php
    - php-mysql
    - git
 
-- name: Configure SELinux to allow httpd to connect to remote database
-  seboolean:
-    name: httpd_can_network_connect_db
-    state: true
-    persistent: yes
-  when: sestatus.rc != 0
-
-- name: http service state
+- name: apache2 service state
   service:
-    name: httpd
+    name: apache2
     state: started
     enabled: yes

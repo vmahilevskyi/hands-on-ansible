@@ -2,7 +2,7 @@
 # This will install nagios
 
 - name: install nagios
-  yum: pkg={{ item }} state=present
+  apt: pkg={{ item }} state=latest
   with_items:
    - nagios
    - nagios-plugins

@@ -10,3 +10,6 @@ lb1
 
 [monitoring]
 nagios
+
+[redis]
+redis
