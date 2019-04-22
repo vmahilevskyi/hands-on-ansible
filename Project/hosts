@@ -1,6 +1,6 @@
 [webservers]
-web1
-web2
+web1 ansible_host=192.168.113.137
+web2 ansible_host=192.168.113.138
 
 [dbservers]
 db1
