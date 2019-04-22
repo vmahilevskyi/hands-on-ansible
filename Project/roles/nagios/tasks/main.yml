@@ -4,15 +4,17 @@
 - name: install nagios
   apt: pkg={{ item }} state=latest
   with_items:
-   - nagios
-   - nagios-plugins
-   - nagios-plugins-nrpe
-   - nagios-plugins-ping
-   - nagios-plugins-ssh
-   - nagios-plugins-http
-   - nagios-plugins-mysql
-   - nagios-devel
-  notify: restart httpd
+    - nagios3
+    - nagios-plugins-basic
+          #   - nagios
+          #   - nagios-plugins
+          #   - nagios-plugins-nrpe
+          #   - nagios-plugins-ping
+          #   - nagios-plugins-ssh
+          #   - nagios-plugins-http
+          #   - nagios-plugins-mysql
+          #   - nagios-devel
+  notify: restart apache2
 
 - name: create nagios config dir
   file: path=/etc/nagios/ansible-managed state=directory

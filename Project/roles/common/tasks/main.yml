@@ -12,18 +12,25 @@
 #
 #- name: Create the GPG key for EPEL
 #  copy: src=RPM-GPG-KEY-EPEL-6 dest=/etc/pki/rpm-gpg
+- name: Update cache
+  apt:
+    update_cache: yes
+    upgrade: yes
+    cache_valid_time: 86400
+  tags: upgrade
 
 - name: install some useful nagios plugins
   apt: 
     name: "{{ item }}"
     state: latest
   with_items:
-   - nagios-nrpe
-   - nagios-plugins-swap
-   - nagios-plugins-users
-   - nagios-plugins-procs
-   - nagios-plugins-load
-   - nagios-plugins-disk
+    - nagios-plugins-basic
+          #   - nagios-nrpe
+          #   - nagios-plugins-swap
+          #   - nagios-plugins-users
+          #   - nagios-plugins-procs
+          #   - nagios-plugins-load
+          #   - nagios-plugins-disk
 
 - name: Install ntp
   apt: 
@@ -38,7 +45,7 @@
 
 - name: Start the ntp service
   service: 
-    name: ntpd 
+    name: ntp 
     state: started 
     enabled: yes
   tags: ntp
